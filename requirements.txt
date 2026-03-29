@@ -1,0 +1,10 @@
+# Core dependencies
+click>=8.0.0
+pyyaml>=6.0
+
+# File format support
+pypdf>=3.0.0
+python-docx>=0.8.11
+
+# AI integration (optional)
+ollama>=0.1.0

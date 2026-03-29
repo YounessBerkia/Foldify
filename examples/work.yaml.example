@@ -1,0 +1,84 @@
+# Work Document Organizer Profile
+# Organizes work documents by type and date
+
+name: work
+version: "1.0"
+description: "Organize work documents by type"
+
+sources:
+  - path: ~/Downloads
+    recursive: false
+    include_patterns: ["*.pdf", "*.docx", "*.xlsx", "*.csv"]
+    exclude_patterns: ["*.tmp", "*.partial"]
+
+destinations:
+  Reports:
+    path: ~/Documents/Work/Reports
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords: ["report", "bericht", "weekly", "monthly", "quarterly", "Q1", "Q2", "Q3", "Q4", "2024", "2025"]
+      - type: content_contains
+        keywords: ["executive summary", "quarterly report", "status update"]
+      - type: date_range
+        newer_than_days: 90
+
+  Invoices:
+    path: ~/Documents/Work/Invoices
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords: ["invoice", "rechnung", "bill", "payment", "factura", "INV-"]
+      - type: content_contains
+        keywords: ["invoice number", "total amount", "due date", "payment terms"]
+
+  Contracts:
+    path: ~/Documents/Work/Contracts
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords: ["contract", "vertrag", "agreement", "terms", "NDA", " SLA"]
+      - type: content_contains
+        keywords: ["party", "hereinafter", "terms and conditions", "signatures"]
+
+  Presentations:
+    path: ~/Documents/Work/Presentations
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions: [".pptx", ".key", ".odp"]
+      - type: filename_contains
+        keywords: ["presentation", "slides", "deck", "pitch", "demo"]
+
+  Data:
+    path: ~/Documents/Work/Data
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions: [".csv", ".xlsx", ".json", ".xml"]
+      - type: filename_contains
+        keywords: ["data", "export", "dump", "dataset", "metrics"]
+
+  Archive:
+    path: ~/Documents/Work/Archive
+    create_if_missing: true
+    rules:
+      - type: date_range
+        older_than_days: 365
+      - type: filename_contains
+        keywords: ["old", "archive", "backup", "legacy"]
+
+ai:
+  enabled: false
+  model: qwen3:8b
+  categories: ["Reports", "Invoices", "Contracts", "Presentations", "Data", "Correspondence", "Other"]
+  confidence_threshold: 0.75
+  max_content_length: 3000
+  cache_results: true
+
+options:
+  dry_run: false
+  backup_conflicts: true
+  log_level: INFO
+  log_file: ~/.local/share/file-organizer/work.log
+  max_workers: 2

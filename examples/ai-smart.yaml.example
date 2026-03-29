@@ -1,0 +1,139 @@
+# AI-Smart Classification Profile
+# Copy to: ~/.config/file-organizer/profiles/ai-smart.yaml
+# Usage: file-organizer run --profile ai-smart
+
+name: "AI Smart Organizer"
+version: "1.0"
+description: "Heavy AI usage for intelligent content-based organization"
+
+sources:
+  - path: "~/Documents/Mixed"
+    recursive: true
+    include_patterns:
+      - "*.pdf"
+      - "*.docx"
+      - "*.txt"
+      - "*.md"
+    exclude_patterns:
+      - ".DS_Store"
+
+destinations:
+  # Work documents
+  arbeit:
+    path: "~/Documents/Arbeit"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "rechnung"
+          - "invoice"
+          - "vertrag"
+          - "contract"
+          - "angebot"
+          - "proposal"
+          - "bericht"
+          - "report"
+
+  # Personal documents
+  persoenlich:
+    path: "~/Documents/Persoenlich"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "ausweis"
+          - "passport"
+          - "versicherung"
+          - "insurance"
+          - "bank"
+          - "konto"
+
+  # Research/Academic
+  forschung:
+    path: "~/Documents/Forschung"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "research"
+          - "studie"
+          - "paper"
+          - "thesis"
+          - "dissertation"
+          - "quelle"
+          - "bibliography"
+      - type: content_contains
+        keywords:
+          - "Abstract"
+          - "Introduction"
+          - "Methodology"
+          - "Conclusion"
+          - "References"
+
+  # Projects
+  projekte:
+    path: "~/Documents/Projekte"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "projekt"
+          - "project"
+          - "plan"
+          - "timeline"
+          - "roadmap"
+
+  # Learning/Education
+  lernen:
+    path: "~/Documents/Lernen"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "lernen"
+          - "learning"
+          - "tutorial"
+          - "kurs"
+          - "course"
+          - "notes"
+          - "notizen"
+
+  # Fallback
+  unsortiert:
+    path: "~/Documents/Unsortiert"
+    create_if_missing: true
+    rules: []
+
+# AI-heavy configuration
+ai:
+  enabled: true
+  model: "qwen3:8b"  # Good balance of speed and quality
+  # Alternative models (uncomment one if needed):
+  # model: "gemma3:12b"  # Higher quality, slower
+  # model: "phi4:mini"    # Faster, less accurate
+  # model: "deepseek-r1:7b" # Best for complex reasoning
+
+  categories:
+    - "Arbeit"           # Work documents
+    - "Persoenlich"      # Personal documents
+    - "Forschung"        # Research/Academic
+    - "Projekte"         # Projects
+    - "Lernen"          # Learning materials
+    - "Unsortiert"      # Could not classify
+
+  confidence_threshold: 0.75  # Higher threshold for important documents
+  max_content_length: 3000      # Read more content for better classification
+  cache_results: true         # Essential for AI mode (slow otherwise)
+
+# Performance notes:
+# - First run will be slow (AI needs to analyze each file)
+# - Subsequent runs are fast (results cached by file hash)
+# - Run with --dry-run first to see what AI decides
+# - Check logs to see AI reasoning for each file
+
+options:
+  dry_run: true              # Start with dry-run to test AI decisions
+  backup_conflicts: true
+  log_level: "DEBUG"         # DEBUG shows AI reasoning
+  log_file: "~/.local/share/file-organizer/ai-smart.log"
+  max_workers: 2             # Lower workers for AI to prevent overload

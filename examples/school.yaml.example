@@ -1,0 +1,177 @@
+# School Files Organizer
+# Copy to: ~/.config/file-organizer/profiles/school.yaml
+# Usage: file-organizer run --profile school
+
+name: "School Files Organizer"
+version: "1.0"
+description: "Organize school files by subject (Mathe, Deutsch, Englisch, etc.)"
+
+sources:
+  # Scan Downloads folder for new school files
+  - path: "~/Downloads"
+    recursive: false
+    include_patterns:
+      - "*.pdf"
+      - "*.docx"
+      - "*.doc"
+      - "*.pages"
+      - "*.txt"
+      - "*.md"
+    exclude_patterns:
+      - ".DS_Store"
+      - "*.tmp"
+      - "*.part"  # Incomplete downloads
+
+  # Scan Desktop for any school files
+  - path: "~/Desktop"
+    recursive: false
+    include_patterns:
+      - "*.pdf"
+      - "*.docx"
+      - "*.doc"
+      - "*.pages"
+      - "*.txt"
+
+destinations:
+  # Mathematics
+  mathe:
+    path: "~/Desktop/Schule/Mathematik"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "mathe"
+          - "math"
+          - "algebra"
+          - "geometrie"
+          - "analysis"
+          - "stochastik"
+          - "rechnen"
+          - "gleichung"
+      - type: extension
+        extensions:
+          - ".tex"  # LaTeX files
+          - ".nb"   # Mathematica
+
+  # German
+  deutsch:
+    path: "~/Desktop/Schule/Deutsch"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "deutsch"
+          - "german"
+          - "literatur"
+          - "grammatik"
+          - "textanalyse"
+          - "interpretation"
+          - "goethe"
+          - "schiller"
+          - "drama"
+          - "lyrik"
+      - type: content_contains
+        keywords:
+          - "Goethe"
+          - "Schiller"
+          - "Grammatik"
+          - "Analyse"
+
+  # English
+  englisch:
+    path: "~/Desktop/Schule/Englisch"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "english"
+          - "englisch"
+          - "vocabulary"
+          - "grammar"
+          - "essay"
+          - "analysis"
+
+  # History
+  geschichte:
+    path: "~/Desktop/Schule/Geschichte"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "geschichte"
+          - "history"
+          - "zeitgeschichte"
+          - "mittelalter"
+          - "antike"
+          - "weltkrieg"
+          - "revolution"
+
+  # Science (Physics/Chemistry/Biology)
+  naturwissenschaften:
+    path: "~/Desktop/Schule/Naturwissenschaften"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "physik"
+          - "physics"
+          - "chemie"
+          - "chemistry"
+          - "biologie"
+          - "biology"
+          - "experiment"
+          - "reaktion"
+          - "organismus"
+
+  # Computer Science
+  informatik:
+    path: "~/Desktop/Schule/Informatik"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "informatik"
+          - "computer"
+          - "programmierung"
+          - "python"
+          - "java"
+          - "code"
+          - "algorithmus"
+      - type: extension
+        extensions:
+          - ".py"
+          - ".java"
+          - ".cpp"
+          - ".js"
+          - ".html"
+
+  # Uncategorized - files that don't match other rules
+  # Will catch files that AI also couldn't classify
+  sonstiges:
+    path: "~/Desktop/Schule/Sonstiges"
+    create_if_missing: true
+    rules: []  # No rules - acts as fallback when AI/other rules fail
+
+# AI-powered classification
+ai:
+  enabled: true
+  model: "qwen3:8b"  # Lightweight, good for Mac M4 with 16GB
+  categories:
+    - "Mathematik"
+    - "Deutsch"
+    - "Englisch"
+    - "Geschichte"
+    - "Naturwissenschaften"
+    - "Informatik"
+    - "Sonstiges"
+  confidence_threshold: 0.7  # Only trust AI if confidence >= 70%
+  max_content_length: 2000   # Characters to read from file for analysis
+  cache_results: true      # Don't re-analyze same file
+
+# Global options
+options:
+  dry_run: false           # Set to true to preview without moving
+  backup_conflicts: true   # Rename instead of overwriting duplicates
+  log_level: "INFO"
+  log_file: "~/.local/share/file-organizer/school.log"
+  max_workers: 4           # Parallel processing threads

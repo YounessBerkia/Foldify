@@ -1,0 +1,186 @@
+# Desktop Cleanup Profile
+# Copy to: ~/.config/file-organizer/profiles/desktop-cleanup.yaml
+# Usage: file-organizer run --profile desktop-cleanup
+
+name: "Desktop Cleanup"
+version: "1.0"
+description: "Organize Downloads and Desktop clutter by file type and date"
+
+sources:
+  - path: "~/Downloads"
+    recursive: true  # Include subdirectories
+    include_patterns:
+      - "*"  # All files
+    exclude_patterns:
+      - ".DS_Store"
+      - "*.download"  # Safari incomplete downloads
+      - "*.part"      # Firefox incomplete downloads
+      - "*.crdownload" # Chrome incomplete downloads
+
+  - path: "~/Desktop"
+    recursive: false
+    include_patterns:
+      - "*"
+    exclude_patterns:
+      - ".DS_Store"
+      - "*.webloc"  # Safari web shortcuts
+
+destinations:
+  # Images
+  bilder:
+    path: "~/Pictures/Downloaded"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".jpg"
+          - ".jpeg"
+          - ".png"
+          - ".gif"
+          - ".webp"
+          - ".bmp"
+          - ".tiff"
+          - ".heic"
+
+  # Documents
+  dokumente:
+    path: "~/Documents/Downloaded"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".pdf"
+          - ".doc"
+          - ".docx"
+          - ".pages"
+          - ".txt"
+          - ".rtf"
+          - ".md"
+          - ".epub"
+          - ".mobi"
+
+  # Spreadsheets
+  tabellen:
+    path: "~/Documents/Spreadsheets"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".xls"
+          - ".xlsx"
+          - ".csv"
+          - ".numbers"
+          - ".ods"
+
+  # Presentations
+  praesentationen:
+    path: "~/Documents/Presentations"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".ppt"
+          - ".pptx"
+          - ".key"
+          - ".odp"
+
+  # Archives
+  archive:
+    path: "~/Documents/Archives"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".zip"
+          - ".rar"
+          - ".7z"
+          - ".tar"
+          - ".gz"
+          - ".bz2"
+          - ".dmg"
+          - ".pkg"
+
+  # Installers
+  installer:
+    path: "~/Downloads/Installers"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".app"
+          - ".exe"
+          - ".msi"
+          - ".deb"
+          - ".rpm"
+      - type: filename_contains
+        keywords:
+          - "installer"
+          - "setup"
+          - "install"
+
+  # Videos
+  videos:
+    path: "~/Movies/Downloaded"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".mp4"
+          - ".mov"
+          - ".avi"
+          - ".mkv"
+          - ".wmv"
+          - ".flv"
+
+  # Audio
+  audio:
+    path: "~/Music/Downloaded"
+    create_if_missing: true
+    rules:
+      - type: extension
+        extensions:
+          - ".mp3"
+          - ".m4a"
+          - ".wav"
+          - ".flac"
+          - ".aac"
+          - ".ogg"
+
+  # Old Downloads (auto-archive by date)
+  old_downloads:
+    path: "~/Downloads/Archive"
+    create_if_missing: true
+    rules:
+      - type: date_range
+        older_than_days: 30  # Files older than 30 days
+
+  # Uncategorized
+  sonstiges:
+    path: "~/Downloads/Uncategorized"
+    create_if_missing: true
+    rules: []
+
+# AI configuration
+ai:
+  enabled: true
+  model: "qwen3:8b"
+  categories:
+    - "Bilder"
+    - "Dokumente"
+    - "Tabellen"
+    - "Präsentationen"
+    - "Archive"
+    - "Videos"
+    - "Audio"
+    - "Sonstiges"
+  confidence_threshold: 0.6  # Lower threshold for broader categorization
+  max_content_length: 1500
+  cache_results: true
+
+# Options
+options:
+  dry_run: false
+  backup_conflicts: true
+  log_level: "INFO"
+  log_file: "~/.local/share/file-organizer/desktop-cleanup.log"
+  max_workers: 4
