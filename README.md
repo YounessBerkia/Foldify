@@ -44,6 +44,10 @@ file-organizer init --template school --profile school
 # Preview changes (dry run)
 file-organizer run --profile school --dry-run
 
+# If you want the preview colors optimized for your terminal background:
+file-organizer run --profile school --dry-run --theme dark
+file-organizer run --profile school --dry-run --theme light
+
 # Execute organization
 file-organizer run --profile school
 ```

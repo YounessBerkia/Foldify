@@ -1,6 +1,7 @@
 """CLI entry point for file-organizer."""
 
 import sys
+import time
 import warnings
 from collections import Counter
 from pathlib import Path
@@ -93,12 +94,22 @@ def cli(verbose: bool) -> None:
     help="Preview changes without executing",
 )
 @click.option(
+    "--theme",
+    type=click.Choice(["auto", "dark", "light"], case_sensitive=False),
+    default="auto",
+    show_default=True,
+    help=(
+        "Preview output theme (auto/dark/light). "
+        "Use this to optimize colors for your terminal background."
+    ),
+)
+@click.option(
     "--limit",
     "-l",
     type=int,
     help="Limit number of files to process",
 )
-def run(profile: str, dry_run: bool, limit: int | None) -> None:
+def run(profile: str, dry_run: bool, theme: str, limit: int | None) -> None:
     """Run file organization with a profile."""
     try:
         config = load_profile_by_name(profile)
@@ -141,6 +152,7 @@ def run(profile: str, dry_run: bool, limit: int | None) -> None:
 
     # Preview mode
     if config.options.dry_run:
+        preview_start = time.perf_counter()
         click.secho("\n=== Dry Run Preview ===", bold=True)
         click.echo("No files will be moved.")
         click.secho("Scanning files and preparing suggestions...\n", fg="cyan")
@@ -155,18 +167,28 @@ def run(profile: str, dry_run: bool, limit: int | None) -> None:
 
         click.secho(f"\nPlanned moves: {len(preview)}\n", fg="green", bold=True)
         for index, (src, dest, match) in enumerate(preview, start=1):
-            click.secho(
-                f"{index}. {truncate_string(src.name, 60)}",
-                bold=True,
+            _print_preview_item(
+                index=index,
+                src=src,
+                dest=dest,
+                reason=match.reason,
+                theme=theme.lower(),
             )
-            click.echo(f"   Destination: {dest.parent.name}")
-            click.echo(f"   Final name: {dest.name}")
-            click.echo(f"   Reason: {match.reason}\n")
 
         if limit is None or len(preview) == limit:
             click.echo(f"Showing {len(preview)} planned result(s).\n")
 
-        if confirm_prompt("Execute these moves?", default=False):
+        preview_elapsed_s = time.perf_counter() - preview_start
+        click.secho(
+            f"Decision time: {preview_elapsed_s:.2f}s",
+            fg="cyan",
+            dim=True,
+        )
+
+        if confirm_prompt(
+            f"Execute these moves? (took {preview_elapsed_s:.2f}s)",
+            default=False,
+        ):
             # Re-run without dry_run
             config.options.dry_run = False
             organizer = Organizer(config, status_callback=_status_update)
@@ -237,6 +259,80 @@ def _preview_update(file_info: FileInfo, status: str) -> None:
     """Render lightweight preview progress updates."""
     if status == "matching":
         click.echo(f"Reviewing {truncate_string(file_info.path.name, 60)}...")
+
+
+def _print_preview_item(
+    index: int, src: Path, dest: Path, reason: str, theme: str = "auto"
+) -> None:
+    """Render one dry-run preview item in a polished, readable style."""
+    # Theme palette.
+    # Note: terminals don't reliably expose background color, so `auto` is a
+    # reasonable default that should work on most setups.
+    if theme not in {"auto", "dark", "light"}:
+        theme = "auto"
+
+    if theme == "light":
+        palette = {
+            "separator_dim": False,
+            "index_fg": "black",
+            "file_fg": "blue",
+            "badge_ai_fg": "red",
+            "badge_rule_fg": "blue",
+            "destination_fg": "green",
+            "final_fg": "black",
+            "label_dim": True,
+            "reason_ai_fg": "red",
+            "reason_rule_fg": "yellow",
+        }
+    else:
+        # auto + dark
+        palette = {
+            "separator_dim": True,
+            "index_fg": "white",
+            "file_fg": "cyan",
+            "badge_ai_fg": "magenta",
+            "badge_rule_fg": "blue",
+            "destination_fg": "green",
+            "final_fg": "white",
+            "label_dim": True,
+            "reason_ai_fg": "magenta",
+            "reason_rule_fg": "yellow",
+        }
+
+    # Destination is the folder the file will land in.
+    destination_name = dest.parent.name
+    final_name = dest.name
+
+    # Heuristic: highlight whether this was AI vs rule-based.
+    is_ai = "ai matched" in reason.casefold()
+
+    separator = click.style("─" * 72, dim=bool(palette["separator_dim"]))
+    index_prefix = click.style(f"{index}.", fg=palette["index_fg"], bold=True)
+    filename = click.style(
+        truncate_string(src.name, 60), fg=palette["file_fg"], bold=True
+    )
+    badge = (
+        click.style("AI", fg=palette["badge_ai_fg"], bold=True)
+        if is_ai
+        else click.style("RULE", fg=palette["badge_rule_fg"], bold=True)
+    )
+
+    click.echo(separator)
+    click.echo(f"{index_prefix} {filename}  {badge}")
+
+    click.echo(
+        f"   {click.style('Destination:', dim=bool(palette['label_dim']))} "
+        f"{click.style(destination_name, fg=palette['destination_fg'], bold=True)}"
+    )
+    click.echo(
+        f"   {click.style('Final name:', dim=bool(palette['label_dim']))} "
+        f"{click.style(final_name, fg=palette['final_fg'])}"
+    )
+    click.echo(
+        f"   {click.style('Reason:', dim=bool(palette['label_dim']))} "
+        f"{click.style(reason, fg=palette['reason_ai_fg' if is_ai else 'reason_rule_fg'])}"
+    )
+    click.echo("")
 
 
 def copy_template(template_name: str, profile_name: str) -> Optional[Path]:

@@ -36,12 +36,19 @@ file-organizer validate myschool
 # Preview changes (dry run)
 file-organizer run --profile myschool --dry-run
 
+# Theme the preview output for your terminal background:
+file-organizer run --profile myschool --dry-run --theme dark
+file-organizer run --profile myschool --dry-run --theme light
+
 # Execute organization
 file-organizer run --profile myschool
 
 # Check AI status
 file-organizer ai status
 ```
+
+Notes:
+- In dry-run mode, the CLI prints a decision-time summary (how long it took to scan + match + (optionally) consult AI) before asking to execute.
 
 ### Rule Types
 
