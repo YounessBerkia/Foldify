@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from file_organizer.config.models import (
+from foldify.config.models import (
     AIConfig,
     Destination,
     Options,
@@ -12,13 +12,14 @@ from file_organizer.config.models import (
     Rule,
     Source,
 )
-from file_organizer.rules.engine import RuleEngine
+from foldify.rules.engine import RuleEngine
 
 
 class FakeAIResult:
     """Simple AI result stub for tests."""
 
     def __init__(self, category: str, confidence: float, reasoning: str = "stub"):
+        # minimal stub to avoid importing real ollama client
         self.category = category
         self.confidence = confidence
         self.reasoning = reasoning
@@ -28,6 +29,8 @@ class FakeAIClient:
     """Minimal AI client stub."""
 
     def __init__(self, result: FakeAIResult | None, threshold: float = 0.7):
+        # mocking the real client without the ollama dependency
+        # lets us test the rule engine in isolation
         self.result = result
         self.calls: list[tuple[str, list[str] | None]] = []
         self.config = AIConfig(enabled=True, confidence_threshold=threshold)

@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "file-organizer"
+name = "foldify"
 version = "0.1.0"
-description = "An intelligent file organization tool with AI-powered classification"
+description = "AI-powered local file organizer — sort your files intelligently using rules and local LLMs"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
@@ -22,7 +22,7 @@ classifiers = [
     "Topic :: System :: Filesystems",
     "Topic :: Utilities",
 ]
-keywords = ["file", "organizer", "ai", "ollama", "automation", "cli"]
+keywords = ["foldify", "file", "organizer", "ai", "ollama", "automation", "cli", "local-ai"]
 requires-python = ">=3.10"
 dependencies = [
     "click>=8.0.0",
@@ -44,18 +44,18 @@ dev = [
 ]
 
 [project.scripts]
-file-organizer = "file_organizer.cli:main"
+foldify = "foldify.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/YounesBerkia/Local-AI-Folder-Organizer"
-Repository = "https://github.com/YounesBerkia/Local-AI-Folder-Organizer"
-Issues = "https://github.com/YounesBerkia/Local-AI-Folder-Organizer/issues"
+Homepage = "https://github.com/YounessBerkia/foldify"
+Repository = "https://github.com/YounessBerkia/foldify"
+Issues = "https://github.com/YounessBerkia/foldify/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-file_organizer = ["py.typed"]
+foldify = ["py.typed"]
 
 [tool.black]
 line-length = 88
@@ -80,4 +80,4 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-v --cov=file_organizer --cov-report=term-missing"
+addopts = "-v --cov=foldify --cov-report=term-missing"

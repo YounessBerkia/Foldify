@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-03-29
 
 ### Added
-- Initial release of File Organizer
+- Initial release of Foldify
 - Profile-based configuration system
 - Hierarchical rule engine with 7 rule types:
   - filename_contains
@@ -34,5 +34,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test suite
 - Documentation (README, CONFIGURATION, TROUBLESHOOTING, CONTRIBUTING)
 
-[Unreleased]: https://github.com/YounesBerkia/Local-AI-Folder-Organizer/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/YounesBerkia/Local-AI-Folder-Organizer/releases/tag/v0.1.0
+[Unreleased]: https://github.com/YounessBerkia/Local-AI-Folder-Organizer/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/YounessBerkia/Local-AI-Folder-Organizer/releases/tag/v0.1.0

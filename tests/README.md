@@ -13,7 +13,7 @@
 pytest
 
 # Run with coverage
-pytest --cov=file_organizer
+pytest --cov=foldify
 
 # Run specific test file
 pytest tests/unit/test_config.py

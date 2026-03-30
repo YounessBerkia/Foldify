@@ -57,3 +57,13 @@ htmlcov/
 # Local environment
 .env
 .env.local
+
+# Demo packages
+.demo_python_packages/
+
+# Virtual environment
+venv/
+
+# Demo files
+"FileOrganizer - Demo - Youness Berkia/"
+"Demo Video.mov"

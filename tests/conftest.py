@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from file_organizer.config.models import (
+from foldify.config.models import (
     AIConfig,
     Destination,
     Options,
@@ -18,6 +18,8 @@ from file_organizer.config.models import (
 @pytest.fixture
 def temp_dir():
     """Provide a temporary directory."""
+    # cleanup happens automatically when the context exits
+    # pretty handy for avoiding test pollution
     with tempfile.TemporaryDirectory() as tmp:
         yield Path(tmp)
 
@@ -63,6 +65,8 @@ def create_test_files(temp_dir):
 
     def _create_files(files_dict):
         """Create files from dictionary {path: content}."""
+        # helper for setting up test files quickly
+        # path_str is relative to temp_dir
         created = []
         for path_str, content in files_dict.items():
             file_path = temp_dir / path_str

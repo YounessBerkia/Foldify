@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/YounessBerkia/foldify/blob/main/docs/CONFIGURATION.md
+    about: Read the configuration guide before opening an issue
+  - name: Troubleshooting
+    url: https://github.com/YounessBerkia/foldify/blob/main/docs/TROUBLESHOOTING.md
+    about: Check the troubleshooting guide for common problems

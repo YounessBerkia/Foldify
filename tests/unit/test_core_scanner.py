@@ -2,9 +2,9 @@
 
 import pytest
 
-from file_organizer.config.models import AIConfig, Destination, Options, Profile, Source
-from file_organizer.core.scanner import FileScanner
-from file_organizer.rules.engine import RuleEngine
+from foldify.config.models import AIConfig, Destination, Options, Profile, Source
+from foldify.core.scanner import FileScanner
+from foldify.rules.engine import RuleEngine
 
 
 class TestFileScanner:

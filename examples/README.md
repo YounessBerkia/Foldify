@@ -1,6 +1,6 @@
 # Example Profiles
 
-Copy these examples to `~/.config/file-organizer/profiles/` and customize for your needs.
+Copy these examples to `~/.config/foldify/profiles/` and customize for your needs.
 
 ## Available Examples
 
@@ -11,8 +11,8 @@ Copy these examples to `~/.config/file-organizer/profiles/` and customize for yo
 
 ## Creating Your Own
 
-1. Copy an example: `cp school.yaml.example ~/.config/file-organizer/profiles/school.yaml`
+1. Copy an example: `cp school.yaml.example ~/.config/foldify/profiles/school.yaml`
 2. Edit paths to match your system
 3. Customize rules for your files
-4. Test with `file-organizer validate school`
-5. Preview with `file-organizer run --profile school --dry-run` before executing
+4. Test with `foldify validate school`
+5. Preview with `foldify run --profile school --dry-run` before executing

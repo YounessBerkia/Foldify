@@ -1,6 +1,6 @@
 """Tests for configuration data models."""
 
-from file_organizer.config.models import (
+from foldify.config.models import (
     AIConfig,
     Destination,
     Options,

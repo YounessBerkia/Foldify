@@ -1,6 +1,6 @@
 # Configuration Guide
 
-Learn how to create and customize File Organizer profiles.
+Learn how to create and customize Foldify profiles.
 
 ## Table of Contents
 
@@ -208,7 +208,7 @@ ai:
 4. If an `ai_match` rule is present, its threshold can further control acceptance
 5. Results are cached to avoid re-processing
 
-If `categories` is empty, File Organizer can still derive categories from the destination folder names.
+If `categories` is empty, Foldify can still derive categories from the destination folder names.
 
 ### Recommended Models
 
@@ -226,7 +226,7 @@ options:
   dry_run: false
   backup_conflicts: true
   log_level: INFO
-  log_file: ~/.local/share/file-organizer/organizer.log
+  log_file: ~/.local/share/foldify/organizer.log
   max_workers: 4
 ```
 

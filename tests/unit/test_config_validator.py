@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from file_organizer.config.models import (
+from foldify.config.models import (
     AIConfig,
     Destination,
     Options,
@@ -13,7 +13,7 @@ from file_organizer.config.models import (
     Rule,
     Source,
 )
-from file_organizer.config.validator import (
+from foldify.config.validator import (
     ValidationError,
     validate_destination,
     validate_profile,

@@ -2,7 +2,7 @@
 
 import pytest
 
-from file_organizer.config.models import (
+from foldify.config.models import (
     AIConfig,
     Destination,
     Options,
@@ -10,7 +10,7 @@ from file_organizer.config.models import (
     Rule,
     Source,
 )
-from file_organizer.core.organizer import Organizer
+from foldify.core.organizer import Organizer
 
 
 class TestOrganizerWorkflow:

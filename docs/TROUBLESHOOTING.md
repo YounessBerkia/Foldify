@@ -4,7 +4,7 @@ Common issues and how to resolve them.
 
 ## Installation Issues
 
-### ModuleNotFoundError: No module named 'file_organizer'
+### ModuleNotFoundError: No module named 'foldify'
 
 **Problem:** Package not installed or installed in wrong environment.
 
@@ -14,10 +14,10 @@ Common issues and how to resolve them.
 pip install -e "."
 
 # Or install from PyPI (when published)
-pip install file-organizer
+pip install foldify
 
 # Verify installation
-python -c "from file_organizer import __version__; print(__version__)"
+python -c "from foldify import __version__; print(__version__)"
 ```
 
 ### ImportError: No module named 'yaml'
@@ -40,17 +40,17 @@ pip install pyyaml click
 **Solutions:**
 1. Check profile exists:
    ```bash
-   file-organizer list
+   foldify list
    ```
 
 2. Verify profile location:
    ```bash
-   ls ~/.config/file-organizer/profiles/
+   ls ~/.config/foldify/profiles/
    ```
 
 3. Create from template:
    ```bash
-   file-organizer init --template school --profile school
+   foldify init --template school --profile school
    ```
 
 ### ValidationError: Profile must have at least one source
@@ -103,8 +103,8 @@ destinations:
 **Solutions:**
 1. Run with `--dry-run` flag to explicitly control:
    ```bash
-   file-organizer run --profile school --dry-run  # Preview
-   file-organizer run --profile school           # Execute
+   foldify run --profile school --dry-run  # Preview
+   foldify run --profile school           # Execute
    ```
 
 2. Or edit profile:
@@ -141,7 +141,7 @@ destinations:
 **Debugging:**
 1. Enable verbose mode:
    ```bash
-   file-organizer run --profile school --verbose
+   foldify run --profile school --verbose
    ```
 
 2. Check include/exclude patterns:
@@ -167,7 +167,7 @@ destinations:
 
 **Check:**
 ```bash
-file-organizer ai status
+foldify ai status
 ```
 
 **Solutions:**
@@ -299,18 +299,18 @@ pip install python-docx
 
 1. **Check for backups:**
    ```bash
-   ls ~/.config/file-organizer/backups/
+   ls ~/.config/foldify/backups/
    ```
 
 2. **Files backed up at destination:**
    ```bash
-   ls ~/Documents/Dest/.file_organizer_backups/
+   ls ~/Documents/Dest/.foldify_backups/
    ```
 
 3. **Manual recovery:**
    ```bash
    # Find and restore from backup
-   find ~/Documents -name ".file_organizer_backups" -type d
+   find ~/Documents -name ".foldify_backups" -type d
    ```
 
 ### Enable backups
@@ -353,7 +353,7 @@ options:
 
 1. **Process in batches:**
    ```bash
-   file-organizer run --profile school --limit 100
+   foldify run --profile school --limit 100
    ```
 
 2. **Reduce AI content length:**
@@ -368,19 +368,19 @@ If issues persist:
 
 1. **Run with verbose logging:**
    ```bash
-   file-organizer run --profile school --verbose 2>&1 | tee organizer.log
+   foldify run --profile school --verbose 2>&1 | tee organizer.log
    ```
 
 2. **Check the log file:**
    ```bash
-   cat ~/.local/share/file-organizer/organizer.log
+   cat ~/.local/share/foldify/organizer.log
    ```
 
 3. **Validate profile:**
    ```bash
-   file-organizer validate school
+   foldify validate school
    ```
 
 4. **Report issues:**
-   - GitHub Issues: https://github.com/YounesBerkia/Local-AI-Folder-Organizer/issues
+   - GitHub Issues: https://github.com/YounessBerkia/Local-AI-Folder-Organizer/issues
    - Include: profile (sanitized), log output, error message

@@ -1,4 +1,4 @@
-# Contributing to File Organizer
+# Contributing to Foldify
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
 
@@ -6,8 +6,8 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YounesBerkia/Local-AI-Folder-Organizer.git
-   cd Local-AI-Folder-Organizer
+   git clone https://github.com/YounessBerkia/foldify.git
+   cd foldify
    ```
 
 2. **Create a virtual environment:**
@@ -31,8 +31,8 @@ Thank you for your interest in contributing! This document provides guidelines f
 ## Project Structure
 
 ```
-file-organizer/
-├── src/file_organizer/    # Main source code
+foldify/
+├── src/foldify/    # Main source code
 │   ├── config/            # Configuration handling
 │   ├── core/              # Core organizer logic
 │   ├── rules/             # Rule engine
@@ -76,7 +76,7 @@ pytest -q
 pytest
 
 # Run with coverage
-pytest --cov=file_organizer
+pytest --cov=foldify
 
 # Run specific test file
 pytest tests/unit/test_config_models.py
@@ -157,7 +157,7 @@ def test_feature(temp_dir):
 
 To add a new rule type:
 
-1. **Add to `Rule` model** (`src/file_organizer/config/models.py`):
+1. **Add to `Rule` model** (`src/foldify/config/models.py`):
    ```python
    @dataclass
    class Rule:
@@ -165,7 +165,7 @@ To add a new rule type:
        new_field: Optional[str] = None
    ```
 
-2. **Implement in engine** (`src/file_organizer/rules/engine.py`):
+2. **Implement in engine** (`src/foldify/rules/engine.py`):
    ```python
    def _match_new_type(self, file_path, rule, destination):
        """Match new rule type."""
@@ -180,7 +180,7 @@ To add a new rule type:
        return RuleMatchResult(matched=False)
    ```
 
-3. **Add validation** (`src/file_organizer/config/validator.py`):
+3. **Add validation** (`src/foldify/config/validator.py`):
    ```python
    def validate_rule(rule, index, dest_name):
        # ...
@@ -200,9 +200,9 @@ To add a new rule type:
 
 ## Adding New AI Features
 
-1. **Extend AI client** (`src/file_organizer/ai/client.py`)
-2. **Update configuration** (`src/file_organizer/config/models.py`)
-3. **Add CLI commands** (`src/file_organizer/cli.py`)
+1. **Extend AI client** (`src/foldify/ai/client.py`)
+2. **Update configuration** (`src/foldify/config/models.py`)
+3. **Add CLI commands** (`src/foldify/cli.py`)
 4. **Write tests**
 5. **Document in TROUBLESHOOTING.md**
 
@@ -222,7 +222,7 @@ When reporting bugs:
 3. **Include:**
    - Python version: `python --version`
    - OS: `uname -a`
-   - Package version: `pip show file-organizer`
+   - Package version: `pip show foldify`
    - Minimal reproducible example
    - Error message / stack trace
    - Profile configuration (sanitized)

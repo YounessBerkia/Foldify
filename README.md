@@ -1,113 +1,156 @@
-# File Organizer
+<p align="center">
+  <img src="assets/banner.png" alt="Foldify Banner" width="100%">
+</p>
 
-An intelligent file organization tool with AI-powered classification. Organize your files using rules, patterns, or local AI models via Ollama.
+<p align="center">
+  <img src="assets/Icon.png" alt="Foldify Icon" width="80">
+</p>
 
-## Status
+<h1 align="center">Foldify</h1>
 
-File Organizer is currently in **alpha**. The core workflow, tests, linting, and strict type checks are in place, but the project is still early and the CLI/API may evolve.
+<p align="center">
+  <strong>AI-powered local file organizer — sort your files with rules, patterns, and local LLMs.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/YounessBerkia/foldify/actions/workflows/ci.yml">
+    <img src="https://github.com/YounessBerkia/foldify/actions/workflows/ci.yml/badge.svg" alt="CI">
+  </a>
+  <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12-blue" alt="Python">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  </a>
+  <img src="https://img.shields.io/badge/code%20style-black-000000" alt="Code style: black">
+  <img src="https://img.shields.io/badge/linting-ruff-orange" alt="Linting: ruff">
+  <img src="https://img.shields.io/badge/AI-Ollama%20(local)-purple" alt="AI: Ollama">
+</p>
+
+---
+
+![Foldify Demo](assets/demo.gif)
+
+## What is Foldify?
+
+Foldify organizes your files automatically using a layered approach: fast rule-based matching first (filename, extension, content, size, date, regex), with a local AI model as a fallback for anything ambiguous. Everything runs **100% locally** — no cloud, no subscriptions, no privacy trade-offs.
 
 ## Features
 
-- **Profile-based configuration** - Multiple use cases, one tool
-- **Hierarchical rule engine** - Filename → Content → AI classification
-- **Safe operations** - Dry-run mode, conflict resolution, undo support
-- **Local AI integration** - Optional Ollama support for smart categorization
-- **Multiple file types** - PDF, DOCX, TXT, and more
-- **Strict quality checks** - `pytest`, `ruff`, and `mypy` all pass locally
+| | |
+|---|---|
+| **Profile-based config** | Define multiple organization schemes in YAML — one for school, one for work, one for your desktop. |
+| **Hierarchical rules** | Seven rule types evaluated in order: `filename_contains`, `extension`, `content_contains`, `size_range`, `date_range`, `regex`, `ai_match`. |
+| **Local AI fallback** | Uses [Ollama](https://ollama.ai) models (`qwen3:8b`, `phi4:mini`, or any custom model) for smart classification when rules don't match. |
+| **Safe by default** | Dry-run preview, automatic conflict backups, and full rollback support. |
+| **Multi-source** | Scan multiple directories at once with include/exclude glob patterns. |
+| **Privacy-first** | All AI inference runs on your machine. Nothing leaves your device. |
+
+## Demo
+
+> Coming soon — see `assets/demo.gif` once the recording is added.
 
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/YounesBerkia/Local-AI-Folder-Organizer.git
-cd Local-AI-Folder-Organizer
-
-# Install with pip
+git clone https://github.com/YounessBerkia/foldify.git
+cd foldify
 pip install -e .
+```
 
-# Or install development dependencies
+For development:
+
+```bash
 pip install -e ".[dev]"
 ```
 
 ## Quick Start
 
 ```bash
-# Create config folders
-file-organizer init
+# Set up config directories
+foldify init
 
-# See available templates
-file-organizer init --list-templates
+# See available profile templates
+foldify init --list-templates
 
-# Create your first profile from a template
-file-organizer init --template school --profile school
+# Create a profile from a template
+foldify init --template school --profile school
 
-# Preview changes (dry run)
-file-organizer run --profile school --dry-run
+# Preview what would happen (no files moved)
+foldify run --profile school --dry-run
 
-# If you want the preview colors optimized for your terminal background:
-file-organizer run --profile school --dry-run --theme dark
-file-organizer run --profile school --dry-run --theme light
+# Adjust preview colors to your terminal background
+foldify run --profile school --dry-run --theme dark
+foldify run --profile school --dry-run --theme light
 
-# Execute organization
-file-organizer run --profile school
+# Execute
+foldify run --profile school
 ```
 
 ## Configuration
 
-Profiles are stored in `~/.config/file-organizer/profiles/`.
+Profiles live in `~/.config/foldify/profiles/` as YAML files.
 
-Use `file-organizer list` to see installed profiles.
+```yaml
+name: school
+sources:
+  - path: ~/Downloads
+    recursive: false
 
-See [examples/](examples/) for sample configurations and [docs/CONFIGURATION.md](docs/CONFIGURATION.md) for the full profile format.
+destinations:
+  Math:
+    path: ~/Documents/School/Math
+    rules:
+      - type: filename_contains
+        keywords: [math, calculus, algebra]
+      - type: extension
+        extensions: [.pdf, .docx]
+
+  Other:
+    path: ~/Documents/School/Other
+    rules:
+      - type: ai_match
+```
+
+See [docs/CONFIGURATION.md](docs/CONFIGURATION.md) for the full profile reference and [examples/](examples/) for ready-to-use templates.
 
 ## AI Integration
 
-File Organizer can use local AI models via Ollama for intelligent classification:
+Foldify uses [Ollama](https://ollama.ai) for optional local AI classification:
 
 ```bash
-# Check AI status
-file-organizer ai status
+# Check Ollama status
+foldify ai status
 
-# Setup recommended model
-file-organizer ai setup
+# Get setup instructions
+foldify ai setup
 
-# Create an AI-oriented profile from a template
-file-organizer init --template ai-smart --profile ai-smart
-
-# Preview AI-based decisions
-file-organizer run --profile ai-smart --dry-run
+# Use an AI-powered profile template
+foldify init --template ai-smart --profile ai-smart
+foldify run --profile ai-smart --dry-run
 ```
 
-AI is used as a fallback after normal rules. In practice that means obvious matches can be handled by fast filename/content rules, while ambiguous files can still be classified by Ollama. You can also add an explicit `ai_match` rule to a destination when you want AI-backed routing in the profile itself.
+AI runs as a **fallback** — fast rule-based matching handles obvious cases first, and AI only kicks in for ambiguous files. You can also add explicit `ai_match` rules to force AI routing for specific destinations.
 
-### Supported Models
+**Supported models:**
 
-- `qwen3:8b` (recommended, ~5.5GB)
-- `phi4:mini` (fast, ~4GB)
-- Custom Ollama models
+| Model | Size | Notes |
+|---|---|---|
+| `qwen3:8b` | ~5.5 GB | Recommended |
+| `phi4:mini` | ~4 GB | Faster, lighter |
+| Any Ollama model | — | Fully configurable |
 
-## Limitations
+## Requirements
 
-- Ollama must be installed and running locally for AI-based matching
-- AI classifications depend on the quality of the selected local model
-- The project is currently optimized for local CLI usage, not long-running background services
+- Python 3.10+
+- [Ollama](https://ollama.ai) *(optional, for AI features)*
 
 ## Documentation
 
 - [Configuration Guide](docs/CONFIGURATION.md)
-- [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Example Profiles](examples/README.md)
-- [Contributing Guide](CONTRIBUTING.md)
-
-## Project Structure
-
-```
-file-organizer/
-├── src/file_organizer/     # Main package
-├── examples/               # Sample configurations
-├── tests/                  # Test suite
-└── docs/                   # Documentation
-```
+- [Contributing](CONTRIBUTING.md)
 
 ## Development
 
@@ -115,14 +158,31 @@ file-organizer/
 # Run tests
 pytest
 
-# Format code
+# Format
 black src/ tests/
+
+# Lint
 ruff check --fix src/ tests/
 
 # Type check
 mypy src/
 ```
 
+## Project Structure
+
+```
+foldify/
+├── src/foldify/        # Main package
+│   ├── config/         # YAML loading & validation
+│   ├── core/           # Organizer, scanner, executor
+│   ├── rules/          # Rule engine
+│   ├── ai/             # Ollama client
+│   └── utils/          # Helpers
+├── examples/           # Sample profiles
+├── tests/              # Test suite
+└── docs/               # Documentation
+```
+
 ## License
 
-MIT License - see [LICENSE](LICENSE) file.
+MIT — see [LICENSE](LICENSE).

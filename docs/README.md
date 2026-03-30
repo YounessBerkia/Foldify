@@ -1,6 +1,6 @@
 # Documentation
 
-Additional documentation for File Organizer.
+Additional documentation for Foldify.
 
 ## Available Guides
 
@@ -22,29 +22,29 @@ See the [`examples/`](../examples/) directory for complete profile examples:
 
 ```bash
 # Initialize configuration
-file-organizer init
+foldify init
 
 # Create profile from template
-file-organizer init --template school --profile myschool
+foldify init --template school --profile myschool
 
 # List profiles
-file-organizer list
+foldify list
 
 # Validate profile
-file-organizer validate myschool
+foldify validate myschool
 
 # Preview changes (dry run)
-file-organizer run --profile myschool --dry-run
+foldify run --profile myschool --dry-run
 
 # Theme the preview output for your terminal background:
-file-organizer run --profile myschool --dry-run --theme dark
-file-organizer run --profile myschool --dry-run --theme light
+foldify run --profile myschool --dry-run --theme dark
+foldify run --profile myschool --dry-run --theme light
 
 # Execute organization
-file-organizer run --profile myschool
+foldify run --profile myschool
 
 # Check AI status
-file-organizer ai status
+foldify ai status
 ```
 
 Notes:
@@ -83,6 +83,6 @@ options:
   dry_run: false
   backup_conflicts: true
   log_level: INFO
-  log_file: ~/.local/share/file-organizer/app.log
+  log_file: ~/.local/share/foldify/app.log
   max_workers: 4
 ```

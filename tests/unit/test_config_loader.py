@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from file_organizer.config.loader import (
+from foldify.config.loader import (
     expand_path,
     load_ai_config,
     load_destination,
@@ -14,7 +14,7 @@ from file_organizer.config.loader import (
     load_rule,
     load_source,
 )
-from file_organizer.config.models import AIConfig, Destination, Options, Source
+from foldify.config.models import AIConfig, Destination, Options, Source
 
 
 class TestPathExpansion:

@@ -1,0 +1,104 @@
+name: demo-youness
+version: "1.0"
+description: "Demo dataset: 10 categories with mixed keyword-based filenames and AI-needed ambiguous filenames."
+
+sources:
+  - path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/incoming"
+    recursive: false
+    include_patterns:
+      - "*.docx"
+
+destinations:
+  School:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/School"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "homework"
+
+  "Tax Returns":
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Tax Returns"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "taxreturn"
+
+  Work:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Work"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "memo"
+
+  Invoices:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Invoices"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "invoice"
+
+  Contracts:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Contracts"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "contract"
+
+  Medical:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Medical"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "prescription"
+
+  Banking:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Banking"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "bankstatement"
+
+  Insurance:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Insurance"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "insurancepolicy"
+
+  Travel:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Travel"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "itinerary"
+
+  Personal:
+    path: "/Users/mac/Desktop/Github Projekte/File Organizer/FileOrganizer - Demo - Youness Berkia/Personal"
+    create_if_missing: true
+    rules:
+      - type: filename_contains
+        keywords:
+          - "passport"
+
+ai:
+  enabled: true
+  model: "qwen3:8b"
+  # Low-ish threshold so the demo works smoothly when Ollama is available.
+  confidence_threshold: 0.45
+  max_content_length: 2000
+  cache_results: true
+
+options:
+  dry_run: false
+  backup_conflicts: true
+  log_level: "INFO"
+

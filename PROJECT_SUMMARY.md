@@ -1,4 +1,4 @@
-# File Organizer - Project Summary
+# Foldify - Project Summary
 
 ## Project Overview
 
@@ -7,8 +7,8 @@ An intelligent file organization tool with AI-powered classification using Ollam
 ## Project Structure
 
 ```
-file-organizer/
-├── src/file_organizer/          # Main source code
+foldify/
+├── src/foldify/          # Main source code
 │   ├── __init__.py              # Package init with version
 │   ├── cli.py                   # CLI entry point (Click-based)
 │   ├── py.typed                 # PEP 561 marker
@@ -92,12 +92,12 @@ file-organizer/
 - AI fallback after normal rules
 
 ### CLI Commands
-- `file-organizer init` - Initialize/create profiles
-- `file-organizer list` - List profiles
-- `file-organizer validate <profile>` - Validate profile
-- `file-organizer run -p <profile>` - Execute organization
-- `file-organizer ai status` - Check AI status
-- `file-organizer ai setup` - AI setup guide
+- `foldify init` - Initialize/create profiles
+- `foldify list` - List profiles
+- `foldify validate <profile>` - Validate profile
+- `foldify run -p <profile>` - Execute organization
+- `foldify ai status` - Check AI status
+- `foldify ai setup` - AI setup guide
 
 ### Safety Features
 - Dry-run mode for preview
@@ -120,13 +120,13 @@ pip install -e ".[dev]"
 
 ```bash
 # Create profile from template
-file-organizer init --template school --profile myschool
+foldify init --template school --profile myschool
 
 # Preview changes
-file-organizer run --profile myschool --dry-run
+foldify run --profile myschool --dry-run
 
 # Execute
-file-organizer run --profile myschool
+foldify run --profile myschool
 ```
 
 ## Testing
@@ -136,7 +136,7 @@ file-organizer run --profile myschool
 pytest
 
 # With coverage
-pytest --cov=file_organizer
+pytest --cov=foldify
 
 # Specific test
 pytest tests/unit/test_config_models.py

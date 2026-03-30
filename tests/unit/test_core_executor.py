@@ -1,6 +1,6 @@
 """Tests for core executor."""
 
-from file_organizer.core.executor import OperationExecutor
+from foldify.core.executor import OperationExecutor
 
 
 class TestOperationExecutor:
@@ -70,7 +70,7 @@ class TestOperationExecutor:
         assert dest.read_text() == "new content"
 
         # Check backup was created
-        backup_dir = dest_dir / ".file_organizer_backups"
+        backup_dir = dest_dir / ".foldify_backups"
         assert backup_dir.exists()
         backups = list(backup_dir.glob("*"))
         assert len(backups) == 1

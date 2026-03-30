@@ -10,12 +10,12 @@ class TestCLICommands:
     def test_cli_help(self):
         """Test CLI help command."""
         result = subprocess.run(
-            [sys.executable, "-m", "file_organizer.cli", "--help"],
+            [sys.executable, "-m", "foldify.cli", "--help"],
             capture_output=True,
             text=True,
         )
         assert result.returncode == 0
-        assert "File Organizer" in result.stdout
+        assert "Foldify" in result.stdout
 
     def test_init_command(self, temp_dir, monkeypatch):
         """Test init command creates directories."""
@@ -23,7 +23,7 @@ class TestCLICommands:
         monkeypatch.setenv("HOME", str(temp_dir))
 
         result = subprocess.run(
-            [sys.executable, "-m", "file_organizer.cli", "init"],
+            [sys.executable, "-m", "foldify.cli", "init"],
             capture_output=True,
             text=True,
         )
@@ -35,7 +35,7 @@ class TestCLICommands:
         monkeypatch.setenv("HOME", str(temp_dir))
 
         result = subprocess.run(
-            [sys.executable, "-m", "file_organizer.cli", "list"],
+            [sys.executable, "-m", "foldify.cli", "list"],
             capture_output=True,
             text=True,
         )
@@ -46,7 +46,7 @@ class TestCLICommands:
     def test_ai_status_command(self):
         """Test AI status command."""
         result = subprocess.run(
-            [sys.executable, "-m", "file_organizer.cli", "ai", "status"],
+            [sys.executable, "-m", "foldify.cli", "ai", "status"],
             capture_output=True,
             text=True,
         )
@@ -62,7 +62,7 @@ class TestCLIRunCommand:
     def test_run_nonexistent_profile(self):
         """Test run with non-existent profile."""
         result = subprocess.run(
-            [sys.executable, "-m", "file_organizer.cli", "run", "-p", "nonexistent"],
+            [sys.executable, "-m", "foldify.cli", "run", "-p", "nonexistent"],
             capture_output=True,
             text=True,
         )
@@ -74,7 +74,7 @@ class TestCLIRunCommand:
         """Test run with invalid profile."""
         monkeypatch.setenv("HOME", str(temp_dir))
 
-        from file_organizer.config.loader import ensure_config_dirs, get_profiles_dir
+        from foldify.config.loader import ensure_config_dirs, get_profiles_dir
 
         ensure_config_dirs()
         profiles_dir = get_profiles_dir()
@@ -85,7 +85,7 @@ class TestCLIRunCommand:
         profile_file.write_text("not: valid: yaml: [")
 
         result = subprocess.run(
-            [sys.executable, "-m", "file_organizer.cli", "run", "-p", "invalid"],
+            [sys.executable, "-m", "foldify.cli", "run", "-p", "invalid"],
             capture_output=True,
             text=True,
         )

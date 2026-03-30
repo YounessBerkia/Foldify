@@ -1,1 +1,1 @@
-"""Unit tests for file-organizer."""
+"""Unit tests for foldify."""
