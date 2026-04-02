@@ -47,9 +47,9 @@ dev = [
 foldify = "foldify.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/YounessBerkia/foldify"
-Repository = "https://github.com/YounessBerkia/foldify"
-Issues = "https://github.com/YounessBerkia/foldify/issues"
+Homepage = "https://github.com/YounessBerkia/Foldify"
+Repository = "https://github.com/YounessBerkia/Foldify"
+Issues = "https://github.com/YounessBerkia/Foldify/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
