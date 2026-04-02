@@ -45,7 +45,7 @@
 
 ## What is Foldify?
 
-Foldify organizes your files automatically using a layered approach: **fast rule-based matching first** (filename, extension, content, size, date, regex), with optional **local AI as a fallback** for ambiguous files. Everything runs 100% locally — no cloud, no subscriptions, no privacy trade-offs.
+Foldify organizes your files automatically using a layered approach: **fast rule-based matching first** (filename, extension, content, size, date, regex), with optional **local AI as a fallback** for ambiguous files. Everything runs 100% locally. No cloud, no subscriptions, no privacy trade-offs.
 
 Unlike cloud-based "smart organizers" that process files one-by-one through expensive APIs, Foldify handles entire directories in seconds with zero ongoing costs.
 
