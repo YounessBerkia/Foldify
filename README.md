@@ -41,7 +41,7 @@
 | **File-by-file API latency** | **Blazing fast** — instant rule matching; AI fallback uses tiny local models |
 | **Burns through tokens** | **Uses fraction of compute** — runs on `gemma3:1b` (~1GB), not 100B parameter cloud APIs |
 
-**The smart workflow:** Use ChatGPT or Claude *once* to generate your YAML profile (e.g., "create a profile that sorts my Downloads into Work, Personal, and Archives"). Then let Foldify execute it **thousands of times instantly** — no tokens, no latency, no cloud dependency.
+**The smart workflow:** Use ChatGPT or Claude *once* to generate your YAML profile (e.g., "create a profile that sorts my Downloads into Work, Personal, and Archives"). Then let Foldify execute it **thousands of times instantly**. No tokens, no latency, no cloud dependency.
 
 ## What is Foldify?
 
